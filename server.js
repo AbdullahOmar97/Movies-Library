@@ -9,19 +9,11 @@ const app = express();
 
 app.get('/', (req, res) => {
 
-  let theMovies = []
 
-
-  moviesData.data.forEach(e => {
-
-      let singleMovie = new Movie(e.title, e.poster_path, e.overview);
+      let singleMovie = new Movie(moviesData.title, moviesData.poster_path, moviesData.overview);
       
-      theMovies.push(singleMovie);
-    
-  });
 
-
-  res.json(theMovies);
+  res.json(singleMovie);
 });
 
 
