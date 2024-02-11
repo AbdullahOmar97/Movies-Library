@@ -1,11 +1,8 @@
-# Movies-Library
+# Movies-Library - Project Version: 0.1
 
-# Project Name - Project Version
-
-**Author Name**: Add your name here
+**Author Name**: Abdullah Omar
 
 ## WRRC
-Add an image of your WRRC here
 
 ## Overview
 
