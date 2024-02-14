@@ -3,7 +3,7 @@
 **Author Name**: ABDULLAH OMAR
 
 ## WRRC
-Add an image of your WRRC here
+![alt text](<WRRC 2.jpg>)
 
 ## Overview
 This Movie App aims to provide information about movies and TV
