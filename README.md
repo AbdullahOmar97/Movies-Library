@@ -3,10 +3,9 @@
 **Author Name**: ABDULLAH OMAR
 
 ## WRRC
-Add an image of your WRRC here
 
 ## Overview
-This Movie App aims to provide information about movies and TV
+This Movie App aims to save information about movies on DataBase
 
 
 ## Getting Started

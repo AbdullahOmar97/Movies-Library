@@ -1,15 +1,81 @@
+
+
 const express = require('express')
 
 const axios = require('axios');
+
+const { Client } = require('pg')
+
+const app = express();
 
 const moviesData = require('./Movie Data/data.json')
 
 require('dotenv').config()
 
-
-const app = express();
+const port = process.env.PORT;
 
 const apiKey = process.env.API_KEY;
+
+const bodyParser = require('body-parser')
+
+app.use(bodyParser.urlencoded({ extended: false }))
+
+app.use(bodyParser.json())
+
+
+const connectionURL = 'postgres://abdullah:1808@localhost:5432/movies'
+
+const client = new Client(connectionURL);
+
+
+//add Movies
+
+app.post('/addMovie', (req, res) => {
+
+  console.log(req.body)
+
+  const { title, release_date, poster_path, overview, comments } = req.body
+
+  const sql = `INSERT INTO movie (title, release_date, poster_path, overview, comments) VALUES ($1, $2, $3, $4, $5) RETURNING *;`;
+  const values = [title, release_date, poster_path, overview, comments];
+  
+
+  client.query(sql, values).then(
+
+  (result) => {
+    console.log(result.rows)
+    res.status(201).json(result.rows)})
+  
+    .catch(error => {
+
+      console.error('Error', error);
+
+      res.status(500).json({ error: 'Internal Server Error' });
+
+    });}
+)
+
+
+//get Movies
+
+app.get('/getMovies', (req, res) => {
+
+  const sql = `SELECT * FROM movie;`
+  client.query(sql).then(
+
+  (result) => {
+    
+    res.status(201).json(result.rows)})
+  
+    .catch(error => {
+
+      console.error('Error', error);
+
+      res.status(500).json({ error: 'Internal Server Error' });
+
+    });}
+)
+
 
 
 //trending
@@ -159,11 +225,10 @@ app.use((req, res) => {
 
 
 
+client.connect().then(() => {
 
-const port = process.env.PORT;
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
-
-
+  app.listen(port, () => {
+    console.log(`Server is running on port ${port}`)
+  })
+}).catch()
 
