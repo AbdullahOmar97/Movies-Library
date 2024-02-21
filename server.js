@@ -28,6 +28,95 @@ const connectionURL = 'postgres://abdullah:1808@localhost:5432/movies'
 const client = new Client(connectionURL);
 
 
+
+///UPDATE/id
+
+app.put('/UPDATE/:id', (req, res) => {
+
+  let MovieID = req.params.id;
+
+  let { title, release_date, poster_path, overview, comments } = req.body;
+
+  let sql = `UPDATE movie
+  SET title = $2, release_date = $3, poster_path = $4, overview = $5, comments = $6
+  WHERE id = $1;`;
+
+  let values = [MovieID, title, release_date, poster_path, overview, comments];
+
+  client.query(sql, values).then(
+
+    (result) => {
+      res.send("Updated")
+    })
+
+    .catch(error => {
+
+      console.error('Error', error);
+
+      res.status(500).json({ error: 'Internal Server Error' });
+
+    });
+}
+)
+
+
+
+///delete/id
+
+app.delete('/DELETE/:id', (req, res) => {
+
+  let MovieID = req.params.id;
+
+  let sql = ` DELETE FROM movie WHERE id = $1;`;
+
+  let values = [MovieID];
+
+  client.query(sql, values).then(
+
+    (result) => {
+      res.send("Deleted")
+    })
+
+    .catch(error => {
+
+      console.error('Error', error);
+
+      res.status(500).json({ error: 'Internal Server Error' });
+
+    });
+}
+)
+
+
+//getMovie/id
+
+
+app.get('/getMovie/:id', (req, res) => {
+
+  let MovieID = req.params.id;
+
+  const sql = `SELECT * FROM movie WHERE id = $1;`
+
+  let values = [MovieID];
+
+  client.query(sql, values).then(
+
+  (result) => {
+    
+    res.status(201).json(result.rows)})
+  
+    .catch(error => {
+
+      console.error('Error', error);
+
+      res.status(500).json({ error: 'Internal Server Error' });
+
+    });}
+)
+
+
+
+
 //add Movies
 
 app.post('/addMovie', (req, res) => {
