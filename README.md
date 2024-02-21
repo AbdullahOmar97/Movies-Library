@@ -3,9 +3,10 @@
 **Author Name**: ABDULLAH OMAR
 
 ## WRRC
+![alt text](WRRC.jpg)
 
 ## Overview
-This Movie App aims to save information about movies on DataBase
+This Movie App aims to save information about movies on DataBase and Delete or Update
 
 
 ## Getting Started
