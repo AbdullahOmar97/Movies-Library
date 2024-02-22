@@ -280,6 +280,8 @@ app.get('/tv/popular', (req, res) => {
 
 app.get('/', (req, res) => {
 
+  res.send("WELCOM TO THE MOVIES APP")
+
   let theMovies = []
 
 
