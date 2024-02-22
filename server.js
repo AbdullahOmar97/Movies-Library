@@ -23,7 +23,9 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 
-const connectionURL = 'postgres://abdullah:1808@localhost:5432/movies'
+//const connectionURL = 'postgres://abdullah:1808@localhost:5432/movies'
+
+const connectionURL = `postgres://cyovjetk:${process.env.elephantsql}-@stampy.db.elephantsql.com/cyovjetk`
 
 const client = new Client(connectionURL);
 
@@ -101,17 +103,19 @@ app.get('/getMovie/:id', (req, res) => {
 
   client.query(sql, values).then(
 
-  (result) => {
-    
-    res.status(201).json(result.rows)})
-  
+    (result) => {
+
+      res.status(201).json(result.rows)
+    })
+
     .catch(error => {
 
       console.error('Error', error);
 
       res.status(500).json({ error: 'Internal Server Error' });
 
-    });}
+    });
+}
 )
 
 
@@ -127,21 +131,23 @@ app.post('/addMovie', (req, res) => {
 
   const sql = `INSERT INTO movie (title, release_date, poster_path, overview, comments) VALUES ($1, $2, $3, $4, $5) RETURNING *;`;
   const values = [title, release_date, poster_path, overview, comments];
-  
+
 
   client.query(sql, values).then(
 
-  (result) => {
-    console.log(result.rows)
-    res.status(201).json(result.rows)})
-  
+    (result) => {
+      console.log(result.rows)
+      res.status(201).json(result.rows)
+    })
+
     .catch(error => {
 
       console.error('Error', error);
 
       res.status(500).json({ error: 'Internal Server Error' });
 
-    });}
+    });
+}
 )
 
 
@@ -152,17 +158,19 @@ app.get('/getMovies', (req, res) => {
   const sql = `SELECT * FROM movie;`
   client.query(sql).then(
 
-  (result) => {
-    
-    res.status(201).json(result.rows)})
-  
+    (result) => {
+
+      res.status(201).json(result.rows)
+    })
+
     .catch(error => {
 
       console.error('Error', error);
 
       res.status(500).json({ error: 'Internal Server Error' });
 
-    });}
+    });
+}
 )
 
 
