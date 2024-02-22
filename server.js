@@ -147,8 +147,7 @@ app.post('/addMovie', (req, res) => {
       res.status(500).json({ error: 'Internal Server Error' });
 
     });
-}
-)
+})
 
 
 //get Movies
@@ -274,11 +273,9 @@ app.get('/tv/popular', (req, res) => {
 });
 
 
-
-
-
-
 app.get('/', (req, res) => {
+
+  res.send("WELCOM TO THE MOVIES APP")
 
   let theMovies = []
 
