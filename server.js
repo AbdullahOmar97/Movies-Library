@@ -147,8 +147,7 @@ app.post('/addMovie', (req, res) => {
       res.status(500).json({ error: 'Internal Server Error' });
 
     });
-}
-)
+})
 
 
 //get Movies
