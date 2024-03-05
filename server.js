@@ -1,12 +1,20 @@
-
+const corsOptions = {
+  origin: 'http://localhost:3008',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+  optionsSuccessStatus: 204,
+  allowedHeaders: 'Content-Type',
+};
 
 const express = require('express')
+const cors = require('cors');
 
 const axios = require('axios');
 
 const { Client } = require('pg')
 
 const app = express();
+app.use(cors(corsOptions));
 
 const moviesData = require('./Movie Data/data.json')
 
@@ -180,6 +188,8 @@ app.get('/trending', (req, res) => {
   axios.get(`https://api.themoviedb.org/3/trending/movie/week?api_key=${apiKey}`)
 
     .then(response => {
+
+      console.log(response)
 
       let trendingMovies = response.data.results.map(movieData => {
 
